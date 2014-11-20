@@ -15,10 +15,10 @@ readAndNameData <- function(dataType) {
     data.X.filename <- paste(paste("X", dataType, sep = "_"), "txt", sep = ".")
     data.X.raw <- read.table(data.X.filename, col.names = features.raw$V2)
     data.Y.filename <- paste(paste("Y", dataType, sep = "_"), "txt", sep = ".")
-    data.Y.raw <- read.table(data.Y.filename, colClasses = c("factor"), col.names = c("activity"))    
-    levels(data.Y.raw$activity) <- activity.labels.raw$V2    
+    data.Y.raw <- read.table(data.Y.filename, colClasses = c("factor"), col.names = c("Activity"))    
+    levels(data.Y.raw$Activity) <- activity.labels.raw$V2    
     data.S.filename <- paste(paste("subject", dataType, sep = "_"), "txt", sep = ".")
-    data.S.raw <- read.table(data.S.filename, colClasses = c("factor"), col.names = c("subject"))
+    data.S.raw <- read.table(data.S.filename, colClasses = c("factor"), col.names = c("Subject"))
     data <- cbind(data.S.raw, data.Y.raw)
     data <- cbind(data, data.X.raw)
     setwd(orig.dir)
@@ -30,5 +30,11 @@ test <- readAndNameData("test")
 train <- readAndNameData("train")
 
 data <- rbind(train, test)
+
+relevant.measures <- grepl("mean\\.\\.|std\\.\\.", names(data))
+relevant.attributes <- names(data) %in% c("Subject", "Activity")
+relevant.variables <- relevant.measures | relevant.attributes
+
+relevant.data <- data[relevant.variables]
 
 setwd(orig.dir)

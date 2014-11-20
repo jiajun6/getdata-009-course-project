@@ -1,0 +1,4 @@
+## Notes
+
+* Measures of `meanFreq` and `gravityMean` features were filtered out because the task said to only keep `mean` and `std` features and for example for `fBodyAccJerk` there are `mean`, `std` and `meanFreq` features, meaning that `meanFreq` is something else. There's a post on this [here](https://class.coursera.org/getdata-009/forum/thread?thread_id=158)
+* Steps 1-4 were not done in order, according to the comments in the [David's Project FAQ](https://class.coursera.org/getdata-009/forum/thread?thread_id=58) the order of the steps is not critical. The reason why the order is mixed up it the design of `readAndNameData` function - it handles one directory with data at once. Of course it would have been possible to do the steps in the order as they were listed but in this case there will be more data cleanup code duplication.

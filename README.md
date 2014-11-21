@@ -23,17 +23,10 @@ From the data set in step 4, creates a second, independent tidy data set with th
 
 A [GitHub repo](https://github.com/melentye/getdata-009-course-project) with neccessary data, scripts and results
 
-### Dependencies
+## Dependencies
 
 * reshape2
 * plyr
-
-## Variable Names
-
-* According to `features_info.txt` the t-prefix was expanded to time, f-prefix was expanded to freq.
-* Acc became Accelerometer
-* Gyro became Gyroscope
-* Redundant special characters were removed so the variables are safe to use in R code
 
 ## Running the Script
 
@@ -49,7 +42,7 @@ View(data)
 
 ## Code Book
 
-The code book is in the file `Codebook.md`
+The code book is in the file `CodeBook.md`. It is heavily based on `features_info.txt` from raw data set and follows the guidelines from [this](https://class.coursera.org/getdata-009/forum/thread?thread_id=89) post.
 
 ## Notes
 

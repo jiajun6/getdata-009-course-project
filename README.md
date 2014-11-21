@@ -42,10 +42,10 @@ The result file with tidy data is named `tidy_data.txt` will be put in the worki
 
 ## Reading Tidy Data
 
-"""
+```
 data <- read.table("tidy_data.txt", header = TRUE)
 View(data)
-"""
+```
 
 ## Code Book
 

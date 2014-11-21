@@ -1,3 +1,6 @@
+library(reshape2)
+library(plyr)
+
 orig.dir <- getwd()
 samsung.data.dir <- "UCI HAR Dataset"
 if (file.exists(samsung.data.dir)) {
@@ -35,8 +38,10 @@ train <- readAndNameData("train")
 # Merge data (step 1)
 data <- rbind(train, test)
 
+relevant.attr.col.names = c("subject", "activity")
+
 relevant.measures <- grepl("mean\\.\\.|std\\.\\.", names(data))
-relevant.attributes <- names(data) %in% c("Subject", "Activity")
+relevant.attributes <- names(data) %in% relevant.attr.col.names
 relevant.variables <- relevant.measures | relevant.attributes
 
 relevant.data <- data[relevant.variables]
@@ -54,4 +59,16 @@ names(relevant.data) <- gsub("\\.+$", "", names(relevant.data))
 # strip repeating dots
 names(relevant.data) <- gsub("\\.+", "\\.", names(relevant.data))
 
+relevant.melted.data <- melt(relevant.data, id = relevant.attr.col.names)
+
+# Calculate means for each variable per each subject and activity
+tidy.data <- dcast(relevant.melted.data, subject + activity ~ variable, mean)
+
+# Wasn't required but wouldn't hurt
+sorted.tidy.data <- arrange(tidy.data, subject, activity)
+
 setwd(orig.dir)
+
+# Write the tidy dataset to the original work directory
+write.table(sorted.tidy.data, file = "tidy_data.txt", row.names = F)
+
